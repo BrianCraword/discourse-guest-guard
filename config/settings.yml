@@ -1,0 +1,41 @@
+plugins:
+  guest_guard_enabled:
+    default: true
+    client: true
+    type: bool
+
+  guest_guard_paths:
+    # Comma- or newline-separated list in the admin UI.
+    # Examples to enter in the UI:
+    #   /discourse-ai/ai-bot/conversations
+    #   /my/*
+    default: ""
+    client: true
+    type: list
+
+  guest_guard_login_url:
+    # Absolute or relative. Absolute example:
+    # https://community.victoriouschristians.com/login
+    # Relative example: /login
+    default: "/login"
+    client: true
+    type: text
+
+  guest_guard_preserve_destination:
+    # When true, append ?<param>=<original_path> to login URL
+    default: false
+    client: true
+    type: bool
+
+  guest_guard_return_param:
+    # Name of the return parameter to append when preserving destination.
+    # Common values: redirect_to, return_to
+    default: "redirect_to"
+    client: true
+    type: text
+
+  guest_guard_allow_param:
+    # Add ?noredirect=1 to bypass (support/debug)
+    default: true
+    client: true
+    type: bool
