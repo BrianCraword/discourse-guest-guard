@@ -5,8 +5,9 @@ plugins:
     type: bool
 
   guest_guard_paths:
-    # Comma- or newline-separated list in the admin UI.
-    # Examples to enter in the UI:
+    # Paths to protect (guests hitting these are redirected to login).
+    # Enter one per line in Admin UI. Supports exact match or prefix with '*'.
+    # Examples:
     #   /discourse-ai/ai-bot/conversations
     #   /my/*
     default: ""
@@ -14,28 +15,42 @@ plugins:
     type: list
 
   guest_guard_login_url:
-    # Absolute or relative. Absolute example:
-    # https://community.victoriouschristians.com/login
-    # Relative example: /login
+    # Where to send guests (relative or absolute).
+    # If you use DiscourseConnect/SSO, consider /login-required.
     default: "/login"
     client: true
     type: text
 
   guest_guard_preserve_destination:
-    # When true, append ?<param>=<original_path> to login URL
-    default: false
+    # Append the original URL as a query param to the login URL.
+    default: true
     client: true
     type: bool
 
   guest_guard_return_param:
-    # Name of the return parameter to append when preserving destination.
-    # Common values: redirect_to, return_to
+    # The name of the query param used when preserving destination.
+    # Common: redirect_to or return_to
     default: "redirect_to"
     client: true
     type: text
 
   guest_guard_allow_param:
-    # Add ?noredirect=1 to bypass (support/debug)
+    # Allow support bypass with ?noredirect=1
     default: true
     client: true
     type: bool
+
+  guest_guard_min_trust_level:
+    # Guests are always redirected.
+    # If >= 0, logged-in users with TL < value are also redirected.
+    # -1 disables TL check (only guests redirected).
+    default: -1
+    client: true
+    type: enum
+    choices:
+      - -1
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
